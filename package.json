@@ -1,0 +1,16 @@
+{
+  "name": "auto_catalog_create",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^1.19.1",
+    "read-excel-file": "^4.0.2",
+    "servicenow-rest-api": "^1.0.5"
+  }
+}

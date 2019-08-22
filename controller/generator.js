@@ -1,4 +1,26 @@
 const readXlsxFile = require('read-excel-file/node');
+const sn = require('./sn-api');
+
+
+const nowApi = new sn(
+	'admin',
+	'raphael10R',
+	'https://dev78974.service-now.com',
+	'77e9979bdb133300ccc961ca0b96197429ce23c55f5cf36769f525a91018dcb47287bffb'
+);
+
+
+nowApi.Authenticate(res => {
+	console.log(res);
+})
+
+
+//catalog_sys_id => 0410c0e8db323300ccc961ca0b9619e1
+
+
+
+
+// }
 
 /**
  * ==== Auto generate Module ======
@@ -58,10 +80,8 @@ exports.createCatalogObjects = (data) => {
 					}
 				}
 			})
-		});		
+		});	
 	});
 
-	
 
-	
 }

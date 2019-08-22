@@ -1,16 +1,16 @@
 {
-  "name": "auto_catalog_create",
+  "name": "servicenow-worker-services",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Raphael Carvalho de Souza",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.0",
     "nodemon": "^1.19.1",
-    "read-excel-file": "^4.0.2",
-    "servicenow-rest-api": "^1.0.5"
+    "read-excel-file": "^4.0.2"
   }
 }

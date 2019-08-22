@@ -56,4 +56,31 @@ nowApi.prototype.CreateCategory = function(name, catalogSysId, catSysIdFather) {
 	})
 }
 
+// (data.catalogSysId, catSysId, rw[itemIndex])
+nowApi.prototype.CreateItem = function(catalogSysId, catSysId, itemName) {
+
+	return new Promise(resolve => {
+		var options = {
+			url: `${this.instance}/api/now/table/sc_cat_item`,
+			method: 'post',
+			auth: {
+				username: `${this.userid}`,
+				password: `${this.password}`
+			},
+			headers: {
+				'X-UserToken': `${this.token}`
+			},
+			data : {"name":itemName,"sc_catalogs":catalogSysId,"category":catSysId}
+		};
+	
+		axios(options).then((val) => {
+			//return sys_id of created categorie
+			resolve(val.data.result.sys_id);
+		}, (rej) => {
+			//return string error
+			resolve('error: CreateCategory');
+		});
+	})
+}
+
 module.exports = nowApi;

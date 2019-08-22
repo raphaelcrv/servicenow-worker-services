@@ -32,6 +32,8 @@ exports.createCatalogCategoriesByExcel = async (data) => {
 
 		for (var i = 0; i < (rw.length); i++) {
 			var vl = rw[i];
+
+			
 			
 			
 			//primeira linha captura as categorias
@@ -39,28 +41,42 @@ exports.createCatalogCategoriesByExcel = async (data) => {
 				categorias.push(i)
 			}
 
+			//captura a posicao do item
+			if (k == 0 && vl.includes('item')) {
+				itemIndex = i;
+			}
 
-			if (i <= (categorias.length - 1) && vl != null && !vl.includes('cat')) {
+
+
+			if (vl != null && !vl.includes('cat')) {
 
 				//if already exists on doneCategories jumpo for next
 				if (!doneCategories.hasOwnProperty(vl)) {
 
-					console.log(vl)
-					//catch father_sys when is not on the first colunm cat
-					fatherSysId = (i == 0 ? '' : doneCategories[rw[i - 1]].sys_id);
-					await nowApi.CreateCategory(vl, data.catalogSysId, fatherSysId).then(res => {
-						done = {
-							'sys_id': res,
-							'father_sys_id': fatherSysId,
-							'level': categorias[i]
-						}
-					})	
+					if(i <= (categorias.length - 1)){
+						//catch father_sys when is not on the first colunm cat
+						fatherSysId = (i == 0 ? '' : doneCategories[rw[i - 1]].sys_id);
+						catSysId = await nowApi.CreateCategory(vl, data.catalogSysId, fatherSysId),
 
-					doneCategories[vl] = done;
+						done = {
+							'sys_id': catSysId,
+							'father_sys_id': fatherSysId,
+							'level': categorias[i],
+							'item' : {
+								'name' : rw[itemIndex],
+								'sysId' : await nowApi.CreateItem(data.catalogSysId, catSysId, rw[itemIndex])
+							},
+							'name' : vl
+						}
+
+						doneCategories[vl] = done;
+					}
+					
 				}
 			}
 		}
 	}
+
 	console.log(doneCategories);
 }
 
